@@ -5,42 +5,38 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection) {
     
+    let result 
+    
+    switch (playerSelection + computerSelection) {
+        case ('rock' + 'scissors'):
+        case ('scissors' + 'paper'):  
+        case ('paper' + 'rock'):
+            matchScore.player++ ;
+            result=`You Win! ${playerSelection} beats ${computerSelection}`;
+            break;
+
+        case ('scissors' + 'rock'):
+        case ('rock' + 'paper'):
+        case ('paper' + 'scissors'):
+            matchScore.computer++ ;
+            result=`You Lose! ${computerSelection} beats ${playerSelection}`;
+            break;
+
+        default:
+            result=`It's Tie! ${computerSelection} tie with ${playerSelection}`
+            break;
+    }
+    
+    return result;
+  }
+
+function game(){
+
     matchScore={
         player:0,
         computer:0
     }
-    switch (playerSelection , computerSelection) {
-        case ('rock' , 'scissors'):
-            matchScore.player++
-            alert("You Win! Rock beats Scissors")
-            break;
-        case ('scissors' , 'paper'):
-            matchScore.player++
-            alert("You Win! Scissors beats Paper")
-            break;
-        case ('paper' , 'rock'):
-            alert("You Win! Paper beats Rock")
-            break;
 
-            
-        case ('scissors' , 'rock'):
-            alert("You Lose! Rock beats Scissors")
-            break;
-        case ('rock' , 'paper'):
-            alert("You Lose! Paper beats Rock")
-            break;
-        case ('paper' , 'scissors'):
-            alert("You Lose! Scissors beats Paper")
-            break;
-
-        default:
-            alert("It's Tie! ")
-            break;
-    }
-    
-  }
-
-function game(){
     for (let i = 0; i < 5; i++) {
         
         do {
@@ -49,8 +45,10 @@ function game(){
         } while (!['rock','paper','scissors'].includes(playerSelection) );
         
         computerSelection=getComputerChoice().toLocaleLowerCase()
-        playRound(playerSelection,computerSelection)
+        alert(playRound(playerSelection,computerSelection))
     }
+
+    alert(matchScore.player+' | '+matchScore.computer)
 }
 
 game()
