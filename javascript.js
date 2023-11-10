@@ -1,3 +1,9 @@
+matchScore={
+    player:0,
+    computer:0
+}
+
+
 function getComputerChoice() {
     let arr=['Rock','Paper','Scissors']
     return arr[Math.floor(Math.random()*3)] 
@@ -8,16 +14,16 @@ function playRound(playerSelection, computerSelection) {
     let result 
     
     switch (playerSelection + computerSelection) {
-        case ('rock' + 'scissors'):
-        case ('scissors' + 'paper'):  
-        case ('paper' + 'rock'):
+        case ('Rock' + 'Scissors'):
+        case ('Scissors' + 'Paper'):  
+        case ('Paper' + 'Rock'):
             matchScore.player++ ;
             result=`You Win! ${playerSelection} beats ${computerSelection}`;
             break;
 
-        case ('scissors' + 'rock'):
-        case ('rock' + 'paper'):
-        case ('paper' + 'scissors'):
+        case ('Scissors' + 'Rock'):
+        case ('Rock' + 'Paper'):
+        case ('Paper' + 'Scissors'):
             matchScore.computer++ ;
             result=`You Lose! ${computerSelection} beats ${playerSelection}`;
             break;
@@ -27,29 +33,26 @@ function playRound(playerSelection, computerSelection) {
             break;
     }
     
-    return result;
+    const container = document.querySelector('div')
+    container.textContent=result
+    container.style.cssText = "margin-top: 16px; color : red;"
+    
+    console.log(result);
+    console.log(matchScore);
+
+    if (matchScore.player == 5 || matchScore.computer == 5 ) {
+        if (matchScore.player == 5 ){
+            alert("You win!")
+        }
+        else if (matchScore.computer == 5 ) {
+            alert("You Lose!")
+        }
+
+        for (const key in matchScore) {
+            matchScore[key] = 0;
+        } 
+        console.log(matchScore)
+    }
+
   }
-
-function game(){
-
-    matchScore={
-        player:0,
-        computer:0
-    }
-
-    for (let i = 0; i < 5; i++) {
-        
-        do {
-            playerSelection=prompt("Enter 'Rock','Paper' or 'Scissors' :").toLowerCase()
-
-        } while (!['rock','paper','scissors'].includes(playerSelection) );
-        
-        computerSelection=getComputerChoice().toLocaleLowerCase()
-        alert(playRound(playerSelection,computerSelection))
-    }
-
-    alert(matchScore.player+' | '+matchScore.computer)
-}
-
-game()
 
